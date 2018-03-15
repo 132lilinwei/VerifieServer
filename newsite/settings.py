@@ -135,3 +135,8 @@ EMAIL_HOST_PASSWORD = '132lilinwei'
 EMAIL_PORT = 587
 
 #SENDSMS_BACKEND = 'newsite.mysmsbackend.SmsBackend'
+
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())

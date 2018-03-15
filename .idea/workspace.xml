@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9924aed0-0754-4299-bcb4-c951c22a45ff" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change beforePath="$PROJECT_DIR$/newsite/settings.py" afterPath="$PROJECT_DIR$/newsite/settings.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,14 +28,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/realapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
+            <state relative-caret-position="-954">
               <caret line="264" column="44" lean-forward="false" selection-start-line="264" selection-start-column="44" selection-end-line="264" selection-end-column="44" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myjson/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="52" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -50,13 +59,6 @@
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="png.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/realapp/temp/png.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -102,11 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/newsite/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="104" column="1" lean-forward="false" selection-start-line="104" selection-start-column="1" selection-end-line="104" selection-end-column="1" />
+            <state relative-caret-position="413">
+              <caret line="141" column="23" lean-forward="true" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -175,12 +177,12 @@
         <option value="$PROJECT_DIR$/login/tests.py" />
         <option value="$PROJECT_DIR$/realapp/tests.py" />
         <option value="$PROJECT_DIR$/newsite/urls.py" />
-        <option value="$PROJECT_DIR$/newsite/settings.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/realapp/photo/face_recognition.py" />
         <option value="$PROJECT_DIR$/realapp/urls.py" />
         <option value="$PROJECT_DIR$/realapp/models.py" />
         <option value="$PROJECT_DIR$/realapp/views.py" />
+        <option value="$PROJECT_DIR$/newsite/settings.py" />
       </list>
     </option>
   </component>
@@ -191,8 +193,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="83" />
-    <option name="y" value="112" />
+    <option name="x" value="82" />
+    <option name="y" value="43" />
     <option name="width" value="1350" />
     <option name="height" value="877" />
   </component>
@@ -310,7 +312,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="83" y="112" width="1350" height="877" extended-state="0" />
+    <frame x="82" y="43" width="1350" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -524,13 +526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myjson/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/polls/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -674,14 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/newsite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="104" column="1" lean-forward="false" selection-start-line="104" selection-start-column="1" selection-end-line="104" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/realapp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -694,11 +681,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/realapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
+        <state relative-caret-position="-954">
           <caret line="264" column="44" lean-forward="false" selection-start-line="264" selection-start-column="44" selection-end-line="264" selection-end-column="44" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myjson/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/newsite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="141" column="23" lean-forward="true" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
