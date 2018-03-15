@@ -24,3 +24,4 @@ scikit-image==0.13.1
 scipy==1.0.0
 six==1.11.0
 urllib3==1.22
+django_heroku==0.3.1
