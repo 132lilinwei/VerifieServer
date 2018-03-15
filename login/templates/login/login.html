@@ -1,0 +1,8 @@
+<head>Login</head>
+<form method="post" action = {% url 'login:on_login' %}>
+    {% csrf_token %}
+    username: <input type="text" name = "username"> <br>
+    password: <input type="password" name = "password"> <br>
+    <input type="submit" value = "Login">
+
+</form>

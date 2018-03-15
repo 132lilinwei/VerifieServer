@@ -1,0 +1,6 @@
+<head>Result of {{ question.question_text }}</head>
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} {{ choice.votes }}</li>
+{% endfor %}
+</ul>
