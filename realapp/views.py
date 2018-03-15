@@ -35,6 +35,7 @@ SESSIONSTATUS = {
     "LOGIN_EMAIL" : 12,
     "LOGIN_PHONE" : 13,
     "LOGIN_PHOTO" : 14,
+    "LOGIN_PHOTO_VERI": 15,
     "LOGIN_CARD" : 17,
     "LOGGEDIN" : 21
 }
@@ -283,20 +284,24 @@ def login_photo(request):
     status = request.session.get('status')
     if status != SESSIONSTATUS['LOGIN_PHONE']:
          return HttpResponse(appres_fatal_error)
-    username = request.session.get("username")
-    image = request.POST["image"]
-    data = os.path.join(BASE, "temp/image")
-    with open(data, "wb") as f:
-        f.write(base64.b64decode(image))
-    user = MyUser.objects.get(username=username)
-    img_path = data
-    # Verify the newly uploaded photo with the user model
-    photo_verified = face_recognition.verify_img(img_path, user)
 
-    if photo_verified:
-        request.session["status"] = SESSIONSTATUS["LOGIN_PHOTO"]
+    thread = Thread(target=photothread, args=(request,))
+    thread.start()
+    request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO"]
+    return HttpResponse(appres_success)
+
+@csrf_exempt
+def login_photoveri(request):
+    if autoLogout(request):
+        return HttpResponse(appres_timeout)
+    status = request.session.get('status')
+    if status != SESSIONSTATUS["LOGIN_PHOTO"]:
+         return HttpResponse(appres_fatal_error)
+    if request.session.get("photo") == "PASS":
+        request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO_VERI"]
         return HttpResponse(appres_success)
     else:
+        request.session['status'] = SESSIONSTATUS["LOGIN_PHONE"]
         return HttpResponse(appres_veri_fail)
 
 
@@ -306,7 +311,7 @@ def digicard(request):
     if autoLogout(request):
         return HttpResponse(appres_timeout)
     status = request.session.get('status')
-    if status != SESSIONSTATUS['LOGIN_PHOTO']:
+    if status != SESSIONSTATUS['LOGIN_PHOTO_VERI']:
         return HttpResponse(appres_fatal_error)
     request.session["status"] = SESSIONSTATUS["LOGGEDIN"]
     return HttpResponse("DIGICARD FINISHED")
@@ -372,7 +377,7 @@ def sendSmsSaveCodeHelper(username):
     mqttc = mqtt.Client("client1", clean_session=False)
     mqttc.username_pw_set("jxjanbvd", "uuUlFpgEVUte")
     mqttc.connect("m23.cloudmqtt.com", 10035, 60)
-    mqttc.publish("sms/henry", "+6582838552 This is a sms message")
+    mqttc.publish("sms/henry", "+6582838552:Your KYC code is " + randomcode)
 
 def autoLogout(request):
     last_time = request.session.get("time")
@@ -395,6 +400,20 @@ def attackDefense(request):
 
 
 
+def photothread(request):
+    request.session["photo"] = "FAIL"
+    username = request.session.get("username")
+    image = request.POST["image"]
+    data = os.path.join(BASE, "temp/image")
+    with open(data, "wb") as f:
+        f.write(base64.b64decode(image))
+    user = MyUser.objects.get(username=username)
+    img_path = data
+    # Verify the newly uploaded photo with the user model
+    photo_verified = face_recognition.verify_img(img_path, user)
+
+    if photo_verified:
+        request.session["photo"] = "PASS"
 
 
 
