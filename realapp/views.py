@@ -369,7 +369,7 @@ def sendSmsSaveCodeHelper(username):
 
 def autoLogout(request):
     last_time = request.session.get("time")
-    if (last_time == None or (int(timezone.now().timestamp() - last_time) > 60) ):
+    if (last_time == None or (int(timezone.now().timestamp() - last_time) > 120) ):
         request.session.flush()
         return True
     else:
