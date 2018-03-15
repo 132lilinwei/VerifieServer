@@ -51,6 +51,8 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 
 @csrf_exempt
 def reg_basic(request):
+    if autoLogout(request):
+        return HttpResponse(appres_timeout)
     username = request.POST["username"]
     password = request.POST["password"]
     email = request.POST["email"]
@@ -188,6 +190,8 @@ def reg_photo(request):
 
 @csrf_exempt
 def login_basic(request):
+    if autoLogout(request):
+        return HttpResponse(appres_timeout)
     username = request.POST["username"]
     password = request.POST["password"]
     if request.session.get('status') !=None:
