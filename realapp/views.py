@@ -101,6 +101,7 @@ def reg_emailverify(request):
     user = MyUser.objects.get(username=request.session.get('username'))
     if user.randomcode == request.POST["randomcode"]:
         request.session["status"] = SESSIONSTATUS["REG_EMAIL"]
+        request.session["last_sent"] = int(timezone.now().timestamp())
 
         #auto send sms
         sendSmsSaveCode(request.session.get('username'))
@@ -236,7 +237,7 @@ def login_emailverify(request):
     user = MyUser.objects.get(username=request.session.get('username'))
     if user.randomcode == request.POST["randomcode"]:
         request.session["status"] = SESSIONSTATUS["LOGIN_EMAIL"]
-
+        request.session["last_sent"] = int(timezone.now().timestamp())
         # auto send sms
         sendSmsSaveCode(request.session.get('username'))
         return HttpResponse(appres_success)
