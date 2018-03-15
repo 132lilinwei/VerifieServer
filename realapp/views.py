@@ -158,22 +158,22 @@ def reg_photo(request):
         except ObjectDoesNotExist:
             return HttpResponse(appres_fatal_error)
 
-        data = os.path.join(BASE, "temp/png.png")
+        data = os.path.join(BASE, "temp/image")
         with open(data, "wb") as f:
             f.write(base64.b64decode(image))
 
         django_file = File(open(data, "rb"))
         if (nowphoto == 1):
-            user.photo1.save(username + str(nowphoto) + ".png", django_file, save=True)
+            user.photo1.save(username + str(nowphoto) , django_file, save=True)
             request.session["status"] = SESSIONSTATUS["REG_PHOTO1"]
             print(user.photo1)
             return HttpResponse(appres_success)
         if (nowphoto == 2):
-            user.photo2.save(username + str(nowphoto) + ".png", django_file, save=True)
+            user.photo2.save(username + str(nowphoto) , django_file, save=True)
             request.session["status"] = SESSIONSTATUS["REG_PHOTO2"]
             return HttpResponse(appres_success)
         if (nowphoto == 3):
-            user.photo3.save(username + str(nowphoto) + ".png", django_file, save=True)
+            user.photo3.save(username + str(nowphoto) , django_file, save=True)
             user = MyUser.objects.get(username=username)
             user.complete = True
             user.save()
@@ -286,7 +286,7 @@ def login_photo(request):
          return HttpResponse(appres_fatal_error)
     username = request.session.get("username")
     image = request.POST["image"]
-    data = os.path.join(BASE, "temp/png.png")
+    data = os.path.join(BASE, "temp/image")
     with open(data, "wb") as f:
         f.write(base64.b64decode(image))
     user = MyUser.objects.get(username=username)

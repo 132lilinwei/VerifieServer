@@ -16,23 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/realapp/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="17" selection-end-column="58" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/realapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="217" column="12" lean-forward="false" selection-start-line="217" selection-start-column="12" selection-end-line="217" selection-end-column="12" />
+            <state relative-caret-position="-1522">
+              <caret line="175" column="54" lean-forward="false" selection-start-line="175" selection-start-column="54" selection-end-line="175" selection-end-column="54" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
@@ -40,23 +28,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myjson/views.py">
+      <file leaf-file-name="lueluelue1.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/media/userimage/lueluelue1.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="face_recognition.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/realapp/photo/face_recognition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="52" />
+            <state relative-caret-position="-820">
+              <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apps.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/realapp/apps.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
+      <file leaf-file-name="lueluelue2_eSgGSpr.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/media/userimage/lueluelue2_eSgGSpr.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -142,10 +134,10 @@
       <find>SESSION</find>
       <find>status</find>
       <find>last</find>
-      <find>time</find>
       <find>random</find>
       <find>tim</find>
       <find>session</find>
+      <find>time</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -226,12 +218,35 @@
             <path>
               <item name="newsite" type="b2602c69:ProjectViewProjectNode" />
               <item name="newsite" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="newsite" type="b2602c69:ProjectViewProjectNode" />
+              <item name="newsite" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
+              <item name="userimage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="newsite" type="b2602c69:ProjectViewProjectNode" />
+              <item name="newsite" type="462c0819:PsiDirectoryNode" />
               <item name="newsite" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="newsite" type="b2602c69:ProjectViewProjectNode" />
               <item name="newsite" type="462c0819:PsiDirectoryNode" />
               <item name="realapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="newsite" type="b2602c69:ProjectViewProjectNode" />
+              <item name="newsite" type="462c0819:PsiDirectoryNode" />
+              <item name="realapp" type="462c0819:PsiDirectoryNode" />
+              <item name="photo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="newsite" type="b2602c69:ProjectViewProjectNode" />
+              <item name="newsite" type="462c0819:PsiDirectoryNode" />
+              <item name="realapp" type="462c0819:PsiDirectoryNode" />
+              <item name="temp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -384,7 +399,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/polls/templates/polls/vote.html" />
     <entry file="file://$PROJECT_DIR$/polls/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -555,11 +569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/media/userimage/lueluelue1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/media/userimage/lueluelue2.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -585,16 +594,6 @@
     <entry file="file://$PROJECT_DIR$/realapp/temp/png.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/realapp/photo/face_recognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/realapp/models.py">
@@ -699,10 +698,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/media/userimage/lueluelue1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/media/userimage/lueluelue2_eSgGSpr.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/realapp/photo/face_recognition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-820">
+          <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/realapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="217" column="12" lean-forward="false" selection-start-line="217" selection-start-column="12" selection-end-line="217" selection-end-column="12" />
+        <state relative-caret-position="-1522">
+          <caret line="175" column="54" lean-forward="false" selection-start-line="175" selection-start-column="54" selection-end-line="175" selection-end-column="54" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
