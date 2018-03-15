@@ -70,7 +70,7 @@ def reg_basic(request):
 
     #SEND EMAIL
     sendEmailSaveCode(username);
-    return HttpResponse(appres_success+" AND EMAIL SENT")
+    return HttpResponse(appres_success)
 
 
 @csrf_exempt
@@ -84,7 +84,7 @@ def reg_email(request):
     if attackDefense(request):
         return HttpResponse(appres_too_frequent)
     sendEmailSaveCode(request.session.get('username'))
-    return HttpResponse("EMAIL SENT")
+    return HttpResponse(appres_success)
 
 @csrf_exempt
 def reg_emailverify(request):
@@ -101,7 +101,7 @@ def reg_emailverify(request):
 
         #auto send sms
         sendSmsSaveCode(request.session.get('username'))
-        return HttpResponse(appres_success + "AND SMS SENT")
+        return HttpResponse(appres_success)
     else:
         return HttpResponse(appres_veri_fail)
 
@@ -116,7 +116,7 @@ def reg_phone(request):
     if (attackDefense(request)):
         return HttpResponse(appres_too_frequent)
     sendSmsSaveCode(request.session.get('username'))
-    return HttpResponse("SMS SENT")
+    return HttpResponse(appres_success)
 
 @csrf_exempt
 def reg_phoneverify(request):
@@ -165,11 +165,11 @@ def reg_photo(request):
             user.photo1.save(username + str(nowphoto) + ".png", django_file, save=True)
             request.session["status"] = SESSIONSTATUS["REG_PHOTO1"]
             print(user.photo1)
-            return HttpResponse("SUCCESSFUL UPLOAD")
+            return HttpResponse(appres_success)
         if (nowphoto == 2):
             user.photo2.save(username + str(nowphoto) + ".png", django_file, save=True)
             request.session["status"] = SESSIONSTATUS["REG_PHOTO2"]
-            return HttpResponse("SUCCESSFUL UPLOAD")
+            return HttpResponse(appres_success)
         if (nowphoto == 3):
             user.photo3.save(username + str(nowphoto) + ".png", django_file, save=True)
             user = MyUser.objects.get(username=username)
@@ -177,7 +177,7 @@ def reg_photo(request):
             user.save()
             del request.session["status"]
             del request.session["username"]
-            return HttpResponse("REGISTRATION COMPLETE")
+            return HttpResponse(appres_success)
     else:
         return HttpResponse(appres_fatal_error)
 
@@ -215,7 +215,7 @@ def login_email(request):
     if request.session.get('status') != SESSIONSTATUS['LOGIN_BASICINFO']:
         return HttpResponse(appres_fatal_error)
     sendEmailSaveCode(request.session.get('username'))
-    return HttpResponse("EMAIL SENT")
+    return HttpResponse(appres_success)
 
 
 @csrf_exempt
@@ -233,7 +233,7 @@ def login_emailverify(request):
 
         # auto send sms
         sendSmsSaveCode(request.session.get('username'))
-        return HttpResponse(appres_success + "AND SMS SENT")
+        return HttpResponse(appres_success)
     else:
         return HttpResponse(appres_veri_fail)
 
@@ -246,7 +246,7 @@ def login_phone(request):
     if status != SESSIONSTATUS['LOGIN_EMAIL']:
         return HttpResponse(appres_fatal_error)
     sendSmsSaveCode(request.session.get('username'))
-    return HttpResponse("SMS SENT")
+    return HttpResponse(appres_success)
 
 @csrf_exempt
 def login_phoneverify(request):
