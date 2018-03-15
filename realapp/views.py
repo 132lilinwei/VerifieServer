@@ -68,6 +68,7 @@ def reg_basic(request):
     request.session['status'] = SESSIONSTATUS['REG_BASICINFO']
     request.session['username'] =  username
     request.session['last_sent'] = int(timezone.now().timestamp())
+    request.session['time'] = int(timezone.now().timestamp())
 
     #SEND EMAIL
     sendEmailSaveCode(username);
@@ -203,6 +204,7 @@ def login_basic(request):
         request.session["status"] = SESSIONSTATUS["LOGIN_BASICINFO"]
         request.session["username"] = request.POST["username"]
         request.session["last_sent"] = int(timezone.now().timestamp())
+        request.session["time"] = int(timezone.now().timestamp())
         #auto send email
         sendEmailSaveCode(username)
         return HttpResponse(appres_success + "EMAIL SENT")
