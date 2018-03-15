@@ -380,6 +380,8 @@ def autoLogout(request):
 
 def attackDefense(request):
     last_time = request.session.get("time")
+    print(last_time)
+    print(timezone.now().timestamp())
     request.session['time'] = int(timezone.now().timestamp())
     if (int(timezone.now().timestamp() - last_time) < 5):
         return True
