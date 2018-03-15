@@ -22,7 +22,7 @@ import datetime
 # Face verification import
 from realapp.photo import face_recognition
 
-NOSMS = False
+NOSMS = True
 
 SESSIONSTATUS = {
     "REG_BASICINFO" : 1 ,
@@ -379,11 +379,12 @@ def sendSmsSaveCodeHelper(username):
     randomcode = generateRdm()
     user = MyUser.objects.get(username=username)
     user.randomcode = randomcode
+    number = user.phone_number
     user.save()
     mqttc = mqtt.Client("client1", clean_session=False)
     mqttc.username_pw_set("jxjanbvd", "uuUlFpgEVUte")
     mqttc.connect("m23.cloudmqtt.com", 10035, 60)
-    mqttc.publish("sms/henry", "+6582838552:Your KYC code is " + randomcode)
+    mqttc.publish("sms/henry", number+":Your KYC code is " + randomcode)
 
 def autoLogout(request):
     last_time = request.session.get("time")
