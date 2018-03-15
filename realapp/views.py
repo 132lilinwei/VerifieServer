@@ -67,7 +67,7 @@ def reg_basic(request):
     newUser.save()
     request.session['status'] = SESSIONSTATUS['REG_BASICINFO']
     request.session['username'] =  username
-    request.session['time'] = int(timezone.now().timestamp())
+    request.session['last_sent'] = int(timezone.now().timestamp())
 
     #SEND EMAIL
     sendEmailSaveCode(username);
@@ -202,7 +202,7 @@ def login_basic(request):
     if (user.password == password):
         request.session["status"] = SESSIONSTATUS["LOGIN_BASICINFO"]
         request.session["username"] = request.POST["username"]
-        request.session["time"] = int(timezone.now().timestamp())
+        request.session["last_sent"] = int(timezone.now().timestamp())
         #auto send email
         sendEmailSaveCode(username)
         return HttpResponse(appres_success + "EMAIL SENT")
@@ -216,6 +216,8 @@ def login_email(request):
         return HttpResponse(appres_timeout)
     if request.session.get('status') != SESSIONSTATUS['LOGIN_BASICINFO']:
         return HttpResponse(appres_fatal_error)
+    if (attackDefense(request)):
+        return HttpResponse(appres_too_frequent)
     sendEmailSaveCode(request.session.get('username'))
     return HttpResponse(appres_success)
 
@@ -247,6 +249,8 @@ def login_phone(request):
     status = request.session.get('status')
     if status != SESSIONSTATUS['LOGIN_EMAIL']:
         return HttpResponse(appres_fatal_error)
+    if (attackDefense(request)):
+        return HttpResponse(appres_too_frequent)
     sendSmsSaveCode(request.session.get('username'))
     return HttpResponse(appres_success)
 
@@ -379,10 +383,10 @@ def autoLogout(request):
         return False
 
 def attackDefense(request):
-    last_time = request.session.get("time")
+    last_time = request.session.get("last_sent")
     print(last_time)
     print(timezone.now().timestamp())
-    request.session['time'] = int(timezone.now().timestamp())
+    request.session['last_sent'] = int(timezone.now().timestamp())
     if (int(timezone.now().timestamp() - last_time) < 5):
         return True
     else:
