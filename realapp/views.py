@@ -130,7 +130,7 @@ def reg_phoneverify(request):
     if status != SESSIONSTATUS['REG_EMAIL']:
         return HttpResponse(appres_fatal_error)
     if NOSMS==True:
-        request.session["status"] = SESSIONSTATUS["LOGIN_PHONE"]
+        request.session["status"] = SESSIONSTATUS["REG_PHONE"]
         return HttpResponse(appres_success)
     #else
     user = MyUser.objects.get(username=request.session.get('username'))
