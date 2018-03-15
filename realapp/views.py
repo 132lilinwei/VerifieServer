@@ -207,7 +207,7 @@ def login_basic(request):
         request.session["time"] = int(timezone.now().timestamp())
         #auto send email
         sendEmailSaveCode(username)
-        return HttpResponse(appres_success + "EMAIL SENT")
+        return HttpResponse(appres_success)
     else:
         return HttpResponse("WRONG PASSWORD")
 
