@@ -177,8 +177,7 @@ def reg_photo(request):
             user = MyUser.objects.get(username=username)
             user.complete = True
             user.save()
-            del request.session["status"]
-            del request.session["username"]
+            request.session.flush()
             return HttpResponse(appres_success)
     else:
         return HttpResponse(appres_fatal_error)
