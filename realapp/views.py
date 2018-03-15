@@ -284,8 +284,10 @@ def login_photo(request):
     status = request.session.get('status')
     if status != SESSIONSTATUS['LOGIN_PHONE']:
          return HttpResponse(appres_fatal_error)
-
-    thread = Thread(target=photothread, args=(request,))
+    request.session["photo"] = "FAIL"
+    username = request.session.get("username")
+    image = request.POST["image"]
+    thread = Thread(target=photothread, args=(username,image,))
     thread.start()
     request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO"]
     return HttpResponse(appres_success)
@@ -297,8 +299,12 @@ def login_photoveri(request):
     status = request.session.get('status')
     if status != SESSIONSTATUS["LOGIN_PHOTO"]:
          return HttpResponse(appres_fatal_error)
-    if request.session.get("photo") == "PASS":
+    username = request.session.get("username")
+    user = MyUser.objects.get(username=username)
+    if user.photoverify == True:
         request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO_VERI"]
+        user.photoverify == False;
+        user.save()
         return HttpResponse(appres_success)
     else:
         request.session['status'] = SESSIONSTATUS["LOGIN_PHONE"]
@@ -400,10 +406,7 @@ def attackDefense(request):
 
 
 
-def photothread(request):
-    request.session["photo"] = "FAIL"
-    username = request.session.get("username")
-    image = request.POST["image"]
+def photothread(username, image):
     data = os.path.join(BASE, "temp/image")
     with open(data, "wb") as f:
         f.write(base64.b64decode(image))
@@ -413,7 +416,11 @@ def photothread(request):
     photo_verified = face_recognition.verify_img(img_path, user)
 
     if photo_verified:
-        request.session["photo"] = "PASS"
+        user.photoverify = True
+        user.save()
+    else:
+        user.photoverify = False
+        user.save()
 
 
 

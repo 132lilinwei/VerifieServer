@@ -14,6 +14,7 @@ class MyUser(models.Model):
     photo2 = models.FileField(upload_to="userimage", null=True)
     photo3 = models.FileField(upload_to="userimage", null=True)
     complete = models.BooleanField(default=False)
+    photoverify = models.BooleanField(default=False)
     randomcode = models.CharField(max_length=200, default="")
     def __str__(self):
         return str(self.username)
