@@ -22,7 +22,7 @@ import datetime
 # Face verification import
 from realapp.photo import face_recognition
 
-NOSMS = False
+NOSMS = True
 
 SESSIONSTATUS = {
     "REG_BASICINFO" : 1 ,
@@ -369,7 +369,7 @@ def sendSmsSaveCodeHelper(username):
 
 def autoLogout(request):
     last_time = request.session.get("time")
-    if ((int(timezone.now().timestamp() - last_time) > 60) or last_time == None):
+    if (last_time == None or (int(timezone.now().timestamp() - last_time) > 60) ):
         request.session.flush()
         return True
     else:
