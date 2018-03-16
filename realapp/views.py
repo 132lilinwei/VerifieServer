@@ -168,16 +168,16 @@ def reg_photo(request):
 
         django_file = File(open(data, "rb"))
         if (nowphoto == 1):
-            user.photo1.save(username + str(nowphoto) , django_file, save=True)
+            user.photo1.save(username + str(nowphoto)+".jpeg" , django_file, save=True)
             request.session["status"] = SESSIONSTATUS["REG_PHOTO1"]
             print(user.photo1)
             return HttpResponse(appres_success)
         if (nowphoto == 2):
-            user.photo2.save(username + str(nowphoto) , django_file, save=True)
+            user.photo2.save(username + str(nowphoto)+".jpeg" , django_file, save=True)
             request.session["status"] = SESSIONSTATUS["REG_PHOTO2"]
             return HttpResponse(appres_success)
         if (nowphoto == 3):
-            user.photo3.save(username + str(nowphoto) , django_file, save=True)
+            user.photo3.save(username + str(nowphoto)+".jpeg" , django_file, save=True)
             user = MyUser.objects.get(username=username)
             user.complete = True
             user.save()
