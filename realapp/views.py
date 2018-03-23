@@ -421,10 +421,10 @@ def photothread(username, image):
 
     if photo_verified:
         user.photoverify = True
-        user.save()
     else:
         user.photoverify = False
-        user.save()
+    
+    user.save()
 
 
 

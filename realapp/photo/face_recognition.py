@@ -103,9 +103,9 @@ def verify_img(img_path, user):
     average_distance = total_distance / len(gt_faces)
     # print("Average distance from all faces: {0:.5f}".format(average_distance))
 
-    # Set the Euclidean distance threshold to be 0.6
+    # Set the Euclidean distance threshold to be 0.5
     # If average_distance <= threshold, return verified, else return not verified
-    threshold = 0.6
+    threshold = 0.5
     if average_distance <= threshold:
         # TODO: Add this face to the list of verified faces
         return True
