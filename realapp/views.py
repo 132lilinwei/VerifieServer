@@ -22,7 +22,7 @@ import datetime
 # Face verification import
 from realapp.photo import face_recognition
 
-NOSMS = False
+NOSMS = True
 
 SESSIONSTATUS = {
     "REG_BASICINFO" : 1 ,
