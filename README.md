@@ -14,11 +14,11 @@ In this stage, an email is sent to the registered email address with a 4-digit c
 
 ### SMS Verification
 
-In this stage, we send an SMS containing a 4-digit code to the user's registered phone. The user is required to enter this code to proceed.
+In this stage, we send an SMS containing a 4-digit code to the user's registered phone. The user is required to enter this code to proceed. For more information, please refer to our [SMS authentication repository](https://github.com/kuiqejw/MQTT-NEW).
 
 ### Image Verification
 
-For this stage, we request a current photo of the user. This is uploaded from the Android app to our server, which processes it and verifies it against the user's previous photos. If it matches, the user may proceed to the final verification step.
+For this stage, we request a current photo of the user. This is uploaded from the Android app to our server, which processes it and verifies it against the user's previous photos. If it matches, the user may proceed to the final verification step. For more information, please refer to our dedicated [face verification repository](https://github.com/kohjingyu/face_verification).
 
 ### DigiCard Verification
 
@@ -26,7 +26,7 @@ For this step, we require the user to enter a unique code given two digits. This
 
 TODO: Insert image of card
 
-### Final
+### Verification Complete
 
 After all previous steps are completed, the user has completed the verification process, and we believe to a high degree of certainty that the user is the true owner of the account.
 
