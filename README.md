@@ -2,7 +2,7 @@
 
 This is our group project for the 50.003 module, Elements of Software Construction held in SUTD. It is a remote Know Your Customer application for identity verification.
 
-This web server interfaces with an Android app for the frontend functionality. For more information on the Android code, please visit the [Android repository](https://github.com/smartlearner1520/Project).
+This web server interfaces with an Android app for the frontend functionality. For more information on the Android code, please visit the [Android repository](https://github.com/smartlearner1520/VerifieAndroid).
 
 ## Functionality
 
