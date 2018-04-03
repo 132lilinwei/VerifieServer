@@ -2,7 +2,7 @@
 
 This is our group project for the 50.003 module, Elements of Software Construction held in SUTD. It is a remote Know Your Customer application for identity verification.
 
-This web server interfaces with an Android app for the frontend functionality. For more information on the Android code, please visit the [Android repository](https://github.com/smartlearner1520/Project).
+This web server interfaces with an Android app for the frontend functionality. For more information on the Android code, please visit the [Android repository](https://github.com/smartlearner1520/VerifieAndroid).
 
 ## Functionality
 
@@ -24,7 +24,7 @@ For this stage, we request a current photo of the user. This is uploaded from th
 
 For this step, we require the user to enter a unique code given two digits. This code is retrieved from the user's company issued card.
 
-TODO: Insert image of card
+![Digicard](digicard.jpeg)
 
 ### Verification Complete
 
@@ -56,7 +56,6 @@ pip install requests
 pip install Pillow
 pip install cmake
 pip install dlib
-
 ```
 
 ### SMS Authentication
@@ -73,11 +72,10 @@ Verifie is currently deployed on a free Heroku dynos. We have observed that it r
 
 ## Tests
 
-We implement several server side tests as well as stress tests for our web server.
+We implement several server side tests as well as stress tests for our web server. For more info, please view `realapp/tests.py`.
 
-* Blah
-* TODO
-* Blah
+* Unit tests: login, registration, username, user creation date
+* System tests: DDoS login attack, incorrect permissions problems
 
 ## Unimplemented Features
 
