@@ -36,7 +36,8 @@ SESSIONSTATUS = {
     "LOGIN_PHONE" : 13,
     "LOGIN_PHOTO" : 14,
     "LOGIN_PHOTO_VERI": 15,
-    "LOGIN_CARD" : 17,
+    "LOGIN_DIGI" : 17,
+    "LOGIN_DIGI_VERI":18,
     "LOGGEDIN" : 21
 }
 appres_fatal_error = "FATAL ERROR"
@@ -179,6 +180,7 @@ def reg_photo(request):
         if (nowphoto == 3):
             user.photo3.save(username + str(nowphoto)+".jpeg" , django_file, save=True)
             user = MyUser.objects.get(username=username)
+            user.digicard = generateDigi()
             user.complete = True
             user.save()
             request.session.flush()
@@ -322,8 +324,29 @@ def digicard(request):
     status = request.session.get('status')
     if status != SESSIONSTATUS['LOGIN_PHOTO_VERI']:
         return HttpResponse(appres_fatal_error)
-    request.session["status"] = SESSIONSTATUS["LOGGEDIN"]
-    return HttpResponse("DIGICARD FINISHED")
+    request.session["status"] = SESSIONSTATUS["LOGIN_DIGI"]
+    digi_entry = generateDigiEntry();
+    request.session["digi_entry"] = digi_entry
+    return HttpResponse(digi_entry)
+
+@csrf_exempt
+def digicard_veri(request):
+    if autoLogout(request):
+        return HttpResponse(appres_timeout)
+    status = request.session.get('status')
+    if status != SESSIONSTATUS["LOGIN_DIGI"]:
+        return HttpResponse(appres_fatal_error)
+    answer = request.POST["answer"]
+    digi_entry = request.session.get('digi_entry')
+    username = request.session.get["username"]
+    if checkDigi(digi_entry, answer, username):
+        request.session["status"] = SESSIONSTATUS["LOGGEDIN"]
+        return HttpResponse(appres_success)
+    else:
+        return HttpResponse(appres_veri_fail)
+
+
+
 
 
 
@@ -426,6 +449,25 @@ def photothread(username, image):
     
     user.save()
 
+
+def generateDigi():
+    return "L41R3T6KS71QHPTPU5V82923JB7WMDZ6NUE"
+def generateDigiEntry():
+    result = ""
+    for i in range(4):
+        letter = chr(random.randint(0,6) + 65)
+        num = str(random.randint(0,4))
+        result = result + letter+ num + " "
+    return result.strip(" ")
+
+def checkDigi(digi_entry, answer, username):
+    user = MyUser.objects.get(username=username)
+    entries = str(digi_entry).split(" ")
+    for i in range(len(entries)):
+        position = ord(entries[i][0])-65 + (int(entries[i][1])) * 7
+        if (user.digicard[position] != answer[i]):
+            return False
+    return True
 
 
 
