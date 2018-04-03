@@ -73,11 +73,10 @@ Verifie is currently deployed on a free Heroku dynos. We have observed that it r
 
 ## Tests
 
-We implement several server side tests as well as stress tests for our web server.
+We implement several server side tests as well as stress tests for our web server. For more info, please view `realapp/tests.py`.
 
-* Blah
-* TODO
-* Blah
+* Unit tests: login, registration, username, user creation date
+* System tests: DDoS login attack, incorrect permissions problems
 
 ## Unimplemented Features
 
