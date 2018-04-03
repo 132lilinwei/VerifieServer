@@ -73,7 +73,7 @@ def reg_basic(request):
     request.session['time'] = int(timezone.now().timestamp())
 
     #SEND EMAIL
-    sendEmailSaveCode(username);
+    sendEmailSaveCode(username)
     return HttpResponse(appres_success)
 
 
@@ -308,7 +308,7 @@ def login_photoveri(request):
     user = MyUser.objects.get(username=username)
     if user.photoverify == True:
         request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO_VERI"]
-        user.photoverify == False;
+        user.photoverify = False
         user.save()
         return HttpResponse(appres_success)
     else:
@@ -325,7 +325,7 @@ def digicard(request):
     if status != SESSIONSTATUS['LOGIN_PHOTO_VERI']:
         return HttpResponse(appres_fatal_error)
     request.session["status"] = SESSIONSTATUS["LOGIN_DIGI"]
-    digi_entry = generateDigiEntry();
+    digi_entry = generateDigiEntry()
     request.session["digi_entry"] = digi_entry
     return HttpResponse(digi_entry)
 
