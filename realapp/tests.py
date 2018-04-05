@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
+from django.test import override_settings
 # Create your tests here.
 from realapp.models import MyUser
 from realapp.views import appres_too_frequent, appres_fatal_error, appres_veri_fail
@@ -25,48 +26,66 @@ import unittest
 from django.test import Client
 
 class ClientTest(unittest.TestCase):
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
     def setUp(self):
         # Every test needs a client.
         self.client = Client()
 
-    def test_login(self):
+    def test_noaccount(self):
+        # Nonexistent account
         self.setUp()
-        #No account
-        response = self.client.post('/login/basic/', {'username': 'nosuch', 'password': 'smith'})
-        print(response)
-        self.assertNotEqual(response, "SUCCESS")
+        response = self.client.post('/realapp/login/basic/', {'username': 'nosuch', 'password': 'smith'})
+        self.assertEqual(response.content.decode('utf-8'), "NO SUCH USER")
 
+    def test_login_wrong_password(self):
         #Wrong password
-        response = self.client.post('/login/basic/', {'username': 'lilinwei', 'password': 'smith'})
-        self.assertNotEqual(response, "SUCCESS")
+        self.setUp()
+        response = self.client.post('/realapp/login/basic/', {'username': 'lilinwei', 'password': 'smith'})
+        self.assertNotEqual(response.content, "SUCCESS")
 
-    def test_registration(self):
+    def test_incomplete_registration(self):
         self.setUp()
         #Not enough info
-        response = self.client.post('/registration/basic/', {'username': 'nosuch', 'password': 'smith'})
-        self.assertNotEqual(response, "SUCCESS")
-
+        response = self.client.post('/realapp/registration/basic/', {'username': 'nosuch', 'email': '', 'nric': '', 'password': 'smith', 'phone_number': '82838552'})
+        self.assertNotEqual(response.content, "SUCCESS")
+    
+    def test_correct_registration(self):
         #correct
-        response = self.client.post('/registration/basic/', {'username': 'test', 'password': 'test', 'nric':'123','email':'llw19970903@live.com','phone_number':'82838552'})
-        self.assertEqual(response,"SUCCESS")
+        self.setUp()
+        response = self.client.post('/realapp/registration/basic/', {'username': 'test', 'password': 'test', 'nric':'123','email':'llw19970903@live.com','phone_number':'82838552'})
+        self.assertEqual(response.content.decode('utf-8'), "SUCCESS")
 
-        #wrong verification code
-        response = self.client.post('/registration/emailveri/',{'randomcode':'0000'})
-        self.assertEqual(response, appres_veri_fail)
+    def test_wrong_email_code(self):
+        #wrong email verification code
+        self.setUp()
+        response = self.client.post('/realapp/registration/emailveri/',{'randomcode':'0000'})
+        self.assertNotEqual(response.content, "SUCCESS")
+
+    def test_wrong_sms_code(self):
+        #wrong sms verification code
+        self.setUp()
+        response = self.client.post('/realapp/registration/phoneveri/',{'randomcode':'0000'})
+        self.assertNotEqual(response.content, "SUCCESS")
+
+    def test_wrong_digi_code(self):
+        #wrong digicode code
+        self.setUp()
+        response = self.client.post('/realapp/registration/digicardveri/',{'randomcode':'0000'})
+        self.assertNotEqual(response.content, "SUCCESS")
 
     def test_attack(self):
         self.setUp()
         #correct login
-        response = self.client.post('/login/basic/', {'username': 'lilinwei', 'password': 'lilinwei'})
-        self.assertEqual(response, "SUCCESS")
+        response = self.client.post('/realapp/login/basic/', {'username': 'lilinwei', 'password': 'lilinwei'})
+        self.assertEqual(response.content.decode('utf-8'), "NO SUCH USER")
 
-        #attack
+        # ddos attack
         for i in range(100):
-            response = self.client.post('login/email')
-            self.assertEqual(response, appres_too_frequent)
+            response = self.client.post('/realapplogin/email')
+            self.assertNotEqual(response.content, "SUCCESS")
 
     def test_faulty_access(self):
         self.setUp()
-        response = self.client.post('/login/photo/')
-        self.assertEqual(appres_fatal_error)
+        response = self.client.post('/realapp/login/photo/')
+        self.assertNotEqual(response.content, "SUCCESS")
 
