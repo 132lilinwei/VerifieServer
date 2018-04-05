@@ -11,6 +11,7 @@ from .face_exceptions import MultiFaceException, NoFaceException, NoHistoryExcep
 
 import numpy as np
 
+import random
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
@@ -32,12 +33,14 @@ def get_images_for_user(user):
         photo3 = Image.open(user.photo3) # UNTESTED
         images.append(np.array(photo3))
 
+    random.shuffle(images)
+
     return images
 
 def verify_img(img_path, user):
     ''' Takes an img path and verifies it against user with username '''
     # Get history of verified faces
-    gt_faces = get_images_for_user(user)
+    gt_faces = [get_images_for_user(user)[0]] # Get first image
 
     # If no faces to compare against, return false (not verified)
     if len(gt_faces) == 0:
