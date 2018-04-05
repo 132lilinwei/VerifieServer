@@ -129,7 +129,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
-GEOIP_PATH = os.path.join(BASE_DIR,'/realapp/geolib/')
+GEOIP_PATH = os.path.join(BASE_DIR,'realapp/geolib')
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
