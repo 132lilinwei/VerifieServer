@@ -491,7 +491,7 @@ def checkDigi(digi_entry, answer, username):
     entries = str(digi_entry).split(" ")
     for i in range(len(entries)):
         position = ord(entries[i][0])-65 + (int(entries[i][1])) * 7
-        print("hahahaoewifjwioefj" + position)
+        print("hahahaoewifjwioefj" + str(position))
         print(digi_entry)
         print(answer)
         if (user.digicard[position] != answer[i]):
