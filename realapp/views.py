@@ -45,7 +45,7 @@ appres_fatal_error = "FATAL ERROR"
 appres_success = "SUCCESS"
 appres_too_frequent = "REQUEST TOO FREQUENT"
 appres_veri_fail = "VERIFICATION FAILS"
-appres_timeout = "TIME OUT"
+appres_timeout = "TIMEOUT"
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
@@ -71,8 +71,9 @@ def reg_basic(request):
     g = GeoIP2()
     info = g.city(ip)
     geolocation = str(info.get("city")) + ", " + str(info.get("country_name"))
+    encoded_password = password.encode('base64','strict')
 
-    newUser = MyUser(username = username, password = password, email = email, nric = nric, phone_number = phone_number, geolocation=geolocation)
+    newUser = MyUser(username = username, password = encoded_password, email = email, nric = nric, phone_number = phone_number, geolocation=geolocation)
     newUser.save()
     request.session['status'] = SESSIONSTATUS['REG_BASICINFO']
     request.session['username'] =  username
@@ -220,8 +221,9 @@ def login_basic(request):
     geolocation = str(info.get("city")) + ", " + str(info.get("country_name"))
     if (geolocation != user.geolocation):
         sendEmailLocation(username=username)
-
-    if (user.password == password):
+    userpass = user.password
+    decoded = userpass.decode('base64','strict')
+    if (decoded == password):
         request.session["status"] = SESSIONSTATUS["LOGIN_BASICINFO"]
         request.session["username"] = request.POST["username"]
         request.session["last_sent"] = int(timezone.now().timestamp())
