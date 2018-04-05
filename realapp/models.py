@@ -17,5 +17,6 @@ class MyUser(models.Model):
     photoverify = models.BooleanField(default=False)
     digicard = models.CharField(max_length=200, null=True, blank=True)
     randomcode = models.CharField(max_length=200, default="")
+    geolocation = models.CharField(max_length=200, default="",null=True,blank=True)
     def __str__(self):
         return str(self.username)
