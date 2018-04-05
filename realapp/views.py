@@ -21,7 +21,7 @@ import datetime
 
 # Face verification import
 from realapp.photo import face_recognition
-from django.contrib.gis.geoip import GeoIp
+from django.contrib.gis.geoip2 import GeoIP2
 
 NOSMS = True
 
@@ -68,7 +68,7 @@ def reg_basic(request):
 
     #else
     ip = get_client_ip(request)
-    g = GeoIp2()
+    g = GeoIP2()
     info = g.city(ip)
     geolocation = info.get("city") + ", " + info.get("country_name")
 
@@ -215,7 +215,7 @@ def login_basic(request):
 
     user = MyUser.objects.get(username=username)
     ip = get_client_ip(request)
-    g = GeoIp2()
+    g = GeoIP2()
     info = g.city(ip)
     geolocation = info.get("city") + ", " + info.get("country_name")
     if (geolocation != user.geolocation):
