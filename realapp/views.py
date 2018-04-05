@@ -311,7 +311,7 @@ def login_photo(request):
     try:
         photothread(username = username,image = image)
     except:
-        return(appres_veri_fail)
+        return HttpResponse(appres_veri_fail)
     user = MyUser.objects.get(username=username)
     if user.photoverify == True:
         request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO"]
@@ -494,9 +494,6 @@ def checkDigi(digi_entry, answer, username):
     entries = str(digi_entry).split(" ")
     for i in range(len(entries)):
         position = ord(entries[i][0])-65 + (int(entries[i][1])) * 7
-        print("hahahaoewifjwioefj" + str(position))
-        print(digi_entry)
-        print(answer)
         if (user.digicard[position] != answer[i]):
             return False
     return True
