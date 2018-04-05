@@ -70,7 +70,7 @@ def reg_basic(request):
     ip = get_client_ip(request)
     g = GeoIP2()
     info = g.city(ip)
-    geolocation = info.get("city") + ", " + info.get("country_name")
+    geolocation = str(info.get("city")) + ", " + str(info.get("country_name"))
 
     newUser = MyUser(username = username, password = password, email = email, nric = nric, phone_number = phone_number, geolocation=geolocation)
     newUser.save()
@@ -217,7 +217,7 @@ def login_basic(request):
     ip = get_client_ip(request)
     g = GeoIP2()
     info = g.city(ip)
-    geolocation = info.get("city") + ", " + info.get("country_name")
+    geolocation = str(info.get("city")) + ", " + str(info.get("country_name"))
     if (geolocation != user.geolocation):
         sendEmailLocation(username=username)
 
