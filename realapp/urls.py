@@ -16,7 +16,7 @@ urlpatterns = [
     path('login/photo/', views.login_photo, name='login_photo'),
     # path('login/photoveri/',views.login_photoveri, name='login_photoverify'),
     # path('login/digicard/',views.digicard, name="login_digicard"),
-    path('login/digicardveri/',views.digicard,name="login_digicardveri"),
+    path('login/digicardveri/',views.digicard_veri,name="login_digicardveri"),
     path('logout/', views.logout, name="logout"),
     path('something/', views.something, name="something"),
 
