@@ -21,6 +21,7 @@ import datetime
 
 # Face verification import
 from realapp.photo import face_recognition
+from django.contrib.gis.geoip import GeoIp
 
 NOSMS = True
 
@@ -64,13 +65,21 @@ def reg_basic(request):
 
     if checkAndDel(username):
         return HttpResponse("USERNAME EXISTS")
+
     #else
-    newUser = MyUser(username = username, password = password, email = email, nric = nric, phone_number = phone_number)
+    ip = get_client_ip(request)
+    g = GeoIp2()
+    info = g.city(ip)
+    geolocation = info.get("city") + ", " + info.get("country_name")
+
+    newUser = MyUser(username = username, password = password, email = email, nric = nric, phone_number = phone_number, geolocation=geolocation)
     newUser.save()
     request.session['status'] = SESSIONSTATUS['REG_BASICINFO']
     request.session['username'] =  username
     request.session['last_sent'] = int(timezone.now().timestamp())
     request.session['time'] = int(timezone.now().timestamp())
+
+
 
     #SEND EMAIL
     sendEmailSaveCode(username)
@@ -205,6 +214,13 @@ def login_basic(request):
         return HttpResponse("NO SUCH USER")
 
     user = MyUser.objects.get(username=username)
+    ip = get_client_ip(request)
+    g = GeoIp2()
+    info = g.city(ip)
+    geolocation = info.get("city") + ", " + info.get("country_name")
+    if (geolocation != user.geolocation):
+        sendEmailLocation(username=username)
+
     if (user.password == password):
         request.session["status"] = SESSIONSTATUS["LOGIN_BASICINFO"]
         request.session["username"] = request.POST["username"]
@@ -347,7 +363,7 @@ def digicard_veri(request):
         return HttpResponse(appres_fatal_error)
     answer = request.POST["answer"]
     digi_entry = request.session.get('digi_entry')
-    username = request.session.get["username"]
+    username = request.session.get("username")
     if checkDigi(digi_entry, answer, username):
         request.session["status"] = SESSIONSTATUS["LOGGEDIN"]
         return HttpResponse(appres_success)
@@ -391,14 +407,15 @@ def sendEmailSaveCode(username):
     thread = Thread(target=sendEmailSaveCodeHelper, args=(username,))
     thread.start()
 
+
 def sendEmailSaveCodeHelper(username):
     randomcode = generateRdm()
     user = MyUser.objects.get(username=username)
     user.randomcode = randomcode
     user.save()
     send_mail(
-        'New registration to KYC',
-        randomcode,
+        'New registration to Verifie',
+        "The code is " + randomcode,
         'llw19970903@gmail.com',
         [user.email],
         fail_silently=False,
@@ -474,9 +491,33 @@ def checkDigi(digi_entry, answer, username):
     entries = str(digi_entry).split(" ")
     for i in range(len(entries)):
         position = ord(entries[i][0])-65 + (int(entries[i][1])) * 7
+        print("hahahaoewifjwioefj" + str(position))
+        print(digi_entry)
+        print(answer)
         if (user.digicard[position] != answer[i]):
             return False
     return True
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+def sendEmailLocation(username):
+    thread = Thread(target=sendEmailLocationHelper, args=(username,))
+    thread.start()
+def sendEmailLocationHelper(username):
+    user = MyUser.objects.get(username=username)
+    send_mail(
+        'Verifie New Log In',
+        "Someone had tried to login to your account in "+ user.geolocation + ". Please confirm if this is you.",
+        'llw19970903@gmail.com',
+        [user.email],
+        fail_silently=False,
+    )
 
 
 
