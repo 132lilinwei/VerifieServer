@@ -292,49 +292,58 @@ def login_photo(request):
     request.session["photo"] = "FAIL"
     username = request.session.get("username")
     image = request.POST["image"]
-    thread = Thread(target=photothread, args=(username,image,))
-    thread.start()
-    request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO"]
-    return HttpResponse(appres_success)
-
-@csrf_exempt
-def login_photoveri(request):
-    if autoLogout(request):
-        return HttpResponse(appres_timeout)
-    status = request.session.get('status')
-    if status != SESSIONSTATUS["LOGIN_PHOTO"]:
-         return HttpResponse(appres_fatal_error)
-    username = request.session.get("username")
+    photothread(username = username,image = image)
     user = MyUser.objects.get(username=username)
     if user.photoverify == True:
-        request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO_VERI"]
+        request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO"]
         user.photoverify = False
         user.save()
-        return HttpResponse(appres_success)
+        digi_entry = generateDigiEntry()
+        request.session["digi_entry"] = digi_entry
+        return HttpResponse(appres_success+" "+digi_entry)
     else:
         request.session['status'] = SESSIONSTATUS["LOGIN_PHONE"]
         return HttpResponse(appres_veri_fail)
 
 
+# @csrf_exempt
+# def login_photoveri(request):
+#     if autoLogout(request):
+#         return HttpResponse(appres_timeout)
+#     status = request.session.get('status')
+#     if status != SESSIONSTATUS["LOGIN_PHOTO"]:
+#          return HttpResponse(appres_fatal_error)
+#     username = request.session.get("username")
+#     user = MyUser.objects.get(username=username)
+#     if user.photoverify == True:
+#         request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO_VERI"]
+#         user.photoverify = False
+#         user.save()
+#         return HttpResponse(appres_success)
+#     else:
+#         request.session['status'] = SESSIONSTATUS["LOGIN_PHONE"]
+#         return HttpResponse(appres_veri_fail)
 
-@csrf_exempt
-def digicard(request):
-    if autoLogout(request):
-        return HttpResponse(appres_timeout)
-    status = request.session.get('status')
-    if status != SESSIONSTATUS['LOGIN_PHOTO_VERI']:
-        return HttpResponse(appres_fatal_error)
-    request.session["status"] = SESSIONSTATUS["LOGIN_DIGI"]
-    digi_entry = generateDigiEntry()
-    request.session["digi_entry"] = digi_entry
-    return HttpResponse(digi_entry)
+
+
+# @csrf_exempt
+# def digicard(request):
+#     if autoLogout(request):
+#         return HttpResponse(appres_timeout)
+#     status = request.session.get('status')
+#     if status != SESSIONSTATUS['LOGIN_PHOTO_VERI']:
+#         return HttpResponse(appres_fatal_error)
+#     request.session["status"] = SESSIONSTATUS["LOGIN_DIGI"]
+#     digi_entry = generateDigiEntry()
+#     request.session["digi_entry"] = digi_entry
+#     return HttpResponse(digi_entry)
 
 @csrf_exempt
 def digicard_veri(request):
     if autoLogout(request):
         return HttpResponse(appres_timeout)
     status = request.session.get('status')
-    if status != SESSIONSTATUS["LOGIN_DIGI"]:
+    if status != SESSIONSTATUS["LOGIN_PHOTO"]:
         return HttpResponse(appres_fatal_error)
     answer = request.POST["answer"]
     digi_entry = request.session.get('digi_entry')
