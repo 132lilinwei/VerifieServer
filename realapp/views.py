@@ -308,7 +308,10 @@ def login_photo(request):
     request.session["photo"] = "FAIL"
     username = request.session.get("username")
     image = request.POST["image"]
-    photothread(username = username,image = image)
+    try:
+        photothread(username = username,image = image)
+    except:
+        return(appres_veri_fail)
     user = MyUser.objects.get(username=username)
     if user.photoverify == True:
         request.session['status'] = SESSIONSTATUS["LOGIN_PHOTO"]
