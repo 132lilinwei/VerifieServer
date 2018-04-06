@@ -89,3 +89,7 @@ class ClientTest(unittest.TestCase):
         response = self.client.post('/realapp/login/photo/')
         self.assertNotEqual(response.content, "SUCCESS")
 
+    def test_location(self):
+        self.setUp()
+        response = self.client.post('/login/', {'username': 'llw19970903@live.com', 'password': 'linwei'}, REMOTE_ADDER="50.233.137.38")
+
