@@ -438,7 +438,7 @@ def sendSmsSaveCodeHelper(username):
     mqttc = mqtt.Client("client1", clean_session=False)
     mqttc.username_pw_set("jxjanbvd", "uuUlFpgEVUte")
     mqttc.connect("m23.cloudmqtt.com", 10035, 60)
-    mqttc.publish("sms/henry", number+":Your KYC code is " + randomcode)
+    mqttc.publish("sms/henry", number[3:]+":Your KYC code is " + randomcode)
 
 def autoLogout(request):
     last_time = request.session.get("time")
