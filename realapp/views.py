@@ -23,7 +23,7 @@ import datetime
 from realapp.photo import face_recognition
 from django.contrib.gis.geoip2 import GeoIP2
 
-NOSMS = True
+NOSMS = False
 
 SESSIONSTATUS = {
     "REG_BASICINFO" : 1 ,
