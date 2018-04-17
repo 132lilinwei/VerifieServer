@@ -19,5 +19,6 @@ urlpatterns = [
     path('login/digicardveri/',views.digicard_veri,name="login_digicardveri"),
     path('logout/', views.logout, name="logout"),
     path('something/', views.something, name="something"),
+    path('remote/', views.test_remote, name="remote"),
 
 ]

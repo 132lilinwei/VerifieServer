@@ -23,7 +23,7 @@ import datetime
 from realapp.photo import face_recognition
 from django.contrib.gis.geoip2 import GeoIP2
 
-NOSMS = True
+NOSMS = False
 
 SESSIONSTATUS = {
     "REG_BASICINFO" : 1 ,
@@ -220,7 +220,14 @@ def login_basic(request):
     geolocation = str(info.get("city")) + ", " + str(info.get("country_name"))
     if (geolocation != user.geolocation):
         sendEmailLocation(username=username)
+
+    user.tried += 1
+    user.save()
+    if (user.tried >= 3):
+        sendEmailLocation(username =username)
     if (user.password == password):
+        user.tried = 0
+        user.save()
         request.session["status"] = SESSIONSTATUS["LOGIN_BASICINFO"]
         request.session["username"] = request.POST["username"]
         request.session["last_sent"] = int(timezone.now().timestamp())
@@ -388,6 +395,16 @@ def something(request):
         return HttpResponse("session shows log in")
     return HttpResponse("NO SESSION")
 
+@csrf_exempt
+def test_remote(request):
+    ip = get_client_ip(request)
+    g = GeoIP2()
+    info = g.city(ip)
+    testsendLoc(info)
+    return HttpResponse("Warning Email Sent")
+
+
+
 
 def checkAndDel(username):
     try:
@@ -512,9 +529,18 @@ def sendEmailLocationHelper(username):
     user = MyUser.objects.get(username=username)
     send_mail(
         'Verifie New Log In',
-        "Someone had tried to login to your account in "+ user.geolocation + ". Please confirm if this is you.",
+        "Someone had tried to login to your account in "+ str(user.geolocation) + ". Please confirm if this is you.",
         'llw19970903@gmail.com',
         [user.email],
+        fail_silently=False,
+    )
+
+def testsendLoc(location):
+    send_mail(
+        'Verifie New Log In',
+        "Someone had tried to login to your account in "+ str(location) + ". Please confirm if this is you.",
+        'llw19970903@gmail.com',
+        ["llw19970903@live.com"],
         fail_silently=False,
     )
 

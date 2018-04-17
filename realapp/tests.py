@@ -5,6 +5,7 @@ from django.test import override_settings
 from realapp.models import MyUser
 from realapp.views import appres_too_frequent, appres_fatal_error, appres_veri_fail
 
+
 # Create your tests here.
 class UserModelTest(TestCase):
     def test_time(self):
@@ -81,7 +82,7 @@ class ClientTest(unittest.TestCase):
 
         # ddos attack
         for i in range(100):
-            response = self.client.post('/realapplogin/email')
+            response = self.client.post('/realapp/login/email')
             self.assertNotEqual(response.content, "SUCCESS")
 
     def test_faulty_access(self):
@@ -90,6 +91,7 @@ class ClientTest(unittest.TestCase):
         self.assertNotEqual(response.content, "SUCCESS")
 
     def test_location(self):
-        self.setUp()
-        response = self.client.post('/login/', {'username': 'llw19970903@live.com', 'password': 'linwei'}, REMOTE_ADDER="50.233.137.38")
+        self.client = Client(REMOTE_ADDR="23.185.0.3")
+        response = self.client.get('/realapp/remote/')
+        print(str(response.content.decode('utf-8')) + " haha")
 
